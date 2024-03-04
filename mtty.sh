@@ -1,11 +1,4 @@
-#!/usr/bin/env bash
-#-------------------------------------------------------
-#	FileName	: mtty.sh
-#	Author		：hpy
-#	Date		：2020年08月09日
-#	Description	：基于linux终端的串口工具
-#               ：连接树莓派，licheepi等
-#-------------------------------------------------------
+#!/bin/bash
 
 if [ $# -ne 2 ]; then
     echo "Usage: $0 <serial_port> <baud>" 
@@ -64,8 +57,10 @@ dis(){
 	done
 }
 info(){
-	echo "欢迎使用linux终端上的嵌入式串口工具！"
-	echo "使用 <Ctrl-c> 退出"
+	echo "Welcome to mtty"
+	echo "OPTIONS: baud:$baud"
+	echo "Port $fdtty"
+	echo "Quit by 'CTRL-C'"
 	echo ""
 }
 main(){
