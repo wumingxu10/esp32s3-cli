@@ -19,20 +19,6 @@ exUsb(){
 	fi
 }
 
-#自动检测目标usb 未完成
-checkUsb(){
-	t1=$(ls /dev/ttyUSB*)
-	if [[ $? -gt 0 ]];then
-		read -p  "请插入串口后，是否继续检测串口y/n?" chechin
-		if [ "$chechin"  = "y" ] || [ "$chechin"  = "yes" ]
-		then
-			fdtty=$(ls /dev/ttyUSB*)
-		fi
-	else
-		t2=$(ls /dev/ttyUSB*)
-	fi
-}
-
 #键盘输入
 getData(){ 
 	while((1))
@@ -48,7 +34,7 @@ dis(){
 	while ((1))
 	do
 		exUsb
-		cat $fdtty | tail -n +2 >> $tp
+		cat $fdtty >> $tp
 		#cat $fdtty  >> /tmp/usbget.txt
 		if [[ -s $tp ]];then
 			cat $tp
@@ -67,8 +53,7 @@ main(){
 	info
 	exUsb
 	stty -F $fdtty -echo raw speed $baud  min 0 time 2 &> /dev/null
-	#cat /dev/null > /tmp/usbget.txt
-	echo -e -n "\n" >$fdtty #启动时发送，以获取反馈显示
+	#echo -e -n "\n" >$fdtty #启动时发送，以获取反馈显示
 	dis &    #显示线程
 	getData  #键盘输入线程
 	exit 0	
